@@ -1,0 +1,12 @@
+hash: 7e2629535b543ab074a1d907fa053be33726416ed32dc1dd254278f617652c90
+updated: 2017-01-09T10:00:52.394275313-06:00
+imports:
+- name: github.com/onsi/ginkgo
+  version: a23f924ce96d61f963fb6219b8ff069d8d768cc2
+- name: github.com/onsi/gomega
+  version: f1f0f388b31eca4e2cbe7a6dd8a3a1dfddda5b1c
+- name: gopkg.in/urfave/cli.v2
+  version: e485446237011b8abac93919242e6f059ad56c87
+- name: gopkg.in/yaml.v2
+  version: a5b47d31c556af34a302ce5d659e6fea44d90de0
+devImports: []

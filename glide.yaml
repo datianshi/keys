@@ -1,0 +1,6 @@
+package: github.com/datianshi/keys
+import:
+- package: gopkg.in/urfave/cli.v2
+- package: github.com/onsi/ginkgo
+- package: github.com/onsi/gomega
+- package: gopkg.in/yaml.v2
