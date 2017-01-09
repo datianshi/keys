@@ -41,6 +41,19 @@ func main() {
 					}),
 					Flags: []cli.Flag{CertFile},
 				},
+				{
+					Name:  "check-root",
+					Usage: "Check if a certificate is root/self signed",
+					Action: CertFunc(func(cert *certificate.Cert) error {
+						isRoot, err := cert.IsRootCert()
+						if err != nil {
+							return err
+						}
+						fmt.Println(isRoot)
+						return nil
+					}),
+					Flags: []cli.Flag{CertFile},
+				},
 			},
 		},
 	}

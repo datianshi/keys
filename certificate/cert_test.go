@@ -137,7 +137,7 @@ T2ZS4mwmSan8SmpGuOR5hnhcHlaVFn9vOPugxtCz3S64XI0rxX9K9w==
 -----END RSA PRIVATE KEY-----
 `
 
-	Context("Load Correct Certificate", func() {
+	Context("Load Correct Root Certificate", func() {
 		var cert *certificate.Cert
 		cert, err := certificate.LoadCertificate(test_cert)
 		It("Should Not return error when certficate is valid", func() {
@@ -151,6 +151,12 @@ T2ZS4mwmSan8SmpGuOR5hnhcHlaVFn9vOPugxtCz3S64XI0rxX9K9w==
 			cn := cert.GetCommonName()
 			Ω(cn).Should(Equal("www.company.com"))
 		})
+		It("Should be the root certificate", func() {
+			isRoot, err := cert.IsRootCert()
+			Ω(err).Should(BeNil())
+			Ω(isRoot).Should(Equal(true))
+		})
+
 	})
 
 	Context("Load InCorrect Certificate", func() {

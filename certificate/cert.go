@@ -33,3 +33,12 @@ func (c *Cert) GetHostNames() []string {
 func (c *Cert) GetCommonName() string {
 	return c.certificate.Subject.CommonName
 }
+
+//IsRootCert By validating it was signed by itself
+func (c *Cert) IsRootCert() (bool, error) {
+	err := c.certificate.CheckSignature(c.certificate.SignatureAlgorithm, c.certificate.RawTBSCertificate, c.certificate.Signature)
+	if err != nil {
+		return false, err
+	}
+	return true, err
+}
