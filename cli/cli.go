@@ -13,7 +13,7 @@ type CertInfo func(cert *certificate.Cert) error
 //CertFunc Generate a Cli action
 func CertFunc(ci CertInfo) cli.ActionFunc {
 	return func(c *cli.Context) error {
-		certContent, err := ioutil.ReadFile(c.String("cert"))
+		certContent, err := ioutil.ReadFile(c.String("cert-file"))
 		if err != nil {
 			return err
 		}
