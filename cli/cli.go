@@ -27,8 +27,8 @@ func CertFunc(ci CertInfo) cli.ActionFunc {
 
 //CertFile
 var CertFile = &cli.StringFlag{
-	Name:    "cert",
-	Aliases: []string{"cert"},
+	Name:    "cert-file",
+	Aliases: []string{"c"},
 	Usage:   "Cert File",
 	EnvVars: []string{"CERT_FILE"},
 }
