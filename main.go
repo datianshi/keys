@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/datianshi/keys/certificate"
 	. "github.com/datianshi/keys/cli"
@@ -43,4 +44,5 @@ func main() {
 			},
 		},
 	}
+	app.Run(os.Args)
 }
