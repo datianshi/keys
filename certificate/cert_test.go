@@ -102,6 +102,9 @@ var _ = Describe("Cert", func() {
 		It("Should Not return error when certficate is valid", func() {
 			Ω(err).Should(BeNil())
 		})
+		It("Should be signed by the root certificate", func() {
+			Ω(intermidiate.CheckSignedFrom(root)).Should(Not(HaveOccurred()))
+		})
 		It("Should be the CA Cert", func() {
 			isCA := intermidiate.IsCACert()
 			Ω(isCA).Should(Equal(true))
