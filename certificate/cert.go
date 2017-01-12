@@ -42,3 +42,13 @@ func (c *Cert) IsRootCert() (bool, error) {
 	}
 	return true, err
 }
+
+//IsCACert Check if a certificate is a CA Cert
+func (c *Cert) IsCACert() bool {
+	return c.certificate.IsCA
+}
+
+//CheckSignedFrom Check if a certificate signed from another
+func (c *Cert) CheckSignedFrom(parent *Cert) error {
+	return c.certificate.CheckSignatureFrom(parent.certificate)
+}

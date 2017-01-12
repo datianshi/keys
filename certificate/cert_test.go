@@ -3,9 +3,19 @@ package certificate_test
 import (
 	"github.com/datianshi/keys/certificate"
 
+	"io/ioutil"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
+
+func ReadFile(file string) (string, error) {
+	b, err := ioutil.ReadFile(file)
+	if err != nil {
+		return "", err
+	}
+	return string(b), err
+}
 
 var _ = Describe("Cert", func() {
 	/*
@@ -61,100 +71,62 @@ var _ = Describe("Cert", func() {
 	           a2:f9:9f:aa:d7:fc:00:6f:20:55:6f:91:20:3a:31:29:a4:c3:
 	           e1:46:88:e3
 	*/
-	var test_cert = `-----BEGIN CERTIFICATE-----
-MIID2jCCAsKgAwIBAgIJALZoanV5O6duMA0GCSqGSIb3DQEBBQUAMHAxCzAJBgNV
-BAYTAlVTMQswCQYDVQQIDAJWQTERMA8GA1UEBwwIU29tZUNpdHkxEjAQBgNVBAoM
-CU15Q29tcGFueTETMBEGA1UECwwKTXlEaXZpc2lvbjEYMBYGA1UEAwwPd3d3LmNv
-bXBhbnkuY29tMB4XDTE3MDEwNjE2NTYwN1oXDTI3MDEwNDE2NTYwN1owcDELMAkG
-A1UEBhMCVVMxCzAJBgNVBAgMAlZBMREwDwYDVQQHDAhTb21lQ2l0eTESMBAGA1UE
-CgwJTXlDb21wYW55MRMwEQYDVQQLDApNeURpdmlzaW9uMRgwFgYDVQQDDA93d3cu
-Y29tcGFueS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDDB9X2
-PZrPA5hAXFxc+MiW/LBB8MWdGhhx2cyL5De+84tBKvhmXQ+FMy7dLNEQXMF2+Ep4
-/bG/kpEQCrU8SJoqfG9laSg8JHocGSZimzSYAwmgyKPMrawgo/R791ezXzFAaCgD
-3b/IU3ZejPoETPFqcj1qsj9Cm0+qm3IrE4KvTGz18DY45MWROzPbAYe6Mgfu7opY
-7smuOWLe2zvY12mzZPSYF9gNWu6rezuIj9+1jnIxI9f9DgHE5i7CeRVv+AE5wUob
-EcLT3+xk9ndLlCG7japxZQnM6DDm0lSvhUXHBY4cr2WmQ1z/ZdrkeukJfryKTPYW
-lknp66+/NJlj5N2JAgMBAAGjdzB1MAsGA1UdDwQEAwIEMDATBgNVHSUEDDAKBggr
-BgEFBQcDATBRBgNVHREESjBIgg93d3cuY29tcGFueS5jb22CC2NvbXBhbnkuY29t
-gg93d3cuY29tcGFueS5uZXSCC2NvbXBhbnkubmV0hwQKCgoKhwQKCgoLMA0GCSqG
-SIb3DQEBBQUAA4IBAQAapctUAF+5H+EyxtSos8O6fZB8Ilea555FNio+Yank517A
-i9wRyP+3s3uPKmf7R317W9xTnW6jKIEGDAXxinjQIIqMNdOJA+D7HxtISh/mSTLR
-ItMAkLopdSSyl6I4jcPZtv9XxQPQ4e+XMIJK/9viZfi9xI63+mzFDNr1crrzugIC
-wYDOycT7BxPsoeqd6BNc0pzktaqgeFXZKQNyn2JO1E+boM1YI16VDGXYgfX9Tout
-adpuh9hNT0jD6JouRL+n6Bg+FyyN+FzOYyvK6HY9o0uXmrQfeF9Al2sL35hbTPIh
-JooCK18FVuTz1q/BjfCJEWRxcVFO4tn6JdpElIJB
------END CERTIFICATE-----`
-
-	var _ = `
------BEGIN CERTIFICATE REQUEST-----
-MIIDPTCCAiUCAQAwcDELMAkGA1UEBhMCVVMxCzAJBgNVBAgMAlZBMREwDwYDVQQH
-DAhTb21lQ2l0eTESMBAGA1UECgwJTXlDb21wYW55MRMwEQYDVQQLDApNeURpdmlz
-aW9uMRgwFgYDVQQDDA93d3cuY29tcGFueS5jb20wggEiMA0GCSqGSIb3DQEBAQUA
-A4IBDwAwggEKAoIBAQDDB9X2PZrPA5hAXFxc+MiW/LBB8MWdGhhx2cyL5De+84tB
-KvhmXQ+FMy7dLNEQXMF2+Ep4/bG/kpEQCrU8SJoqfG9laSg8JHocGSZimzSYAwmg
-yKPMrawgo/R791ezXzFAaCgD3b/IU3ZejPoETPFqcj1qsj9Cm0+qm3IrE4KvTGz1
-8DY45MWROzPbAYe6Mgfu7opY7smuOWLe2zvY12mzZPSYF9gNWu6rezuIj9+1jnIx
-I9f9DgHE5i7CeRVv+AE5wUobEcLT3+xk9ndLlCG7japxZQnM6DDm0lSvhUXHBY4c
-r2WmQ1z/ZdrkeukJfryKTPYWlknp66+/NJlj5N2JAgMBAAGggYcwgYQGCSqGSIb3
-DQEJDjF3MHUwCwYDVR0PBAQDAgQwMBMGA1UdJQQMMAoGCCsGAQUFBwMBMFEGA1Ud
-EQRKMEiCD3d3dy5jb21wYW55LmNvbYILY29tcGFueS5jb22CD3d3dy5jb21wYW55
-Lm5ldIILY29tcGFueS5uZXSHBAoKCgqHBAoKCgswDQYJKoZIhvcNAQELBQADggEB
-ADf2hwuyAEPvrf6lt+k4M7EEeCVoWPJ+ph5PVNqhgHfq6MivMxJxcF8D97BJ2V1b
-Qi8kot/+vdpQeG+50PpDyS+UHHAybtYjRJn+OOOM8Yc8HScaUv/KCAoYTty7Lfkq
-2+IN7RmB56xz/iSy6HT5J3ciuh0eD6t0L+FPwBnR4o+lcps4cvwQ2RAK/GKelCtN
-AaUwGofAYpkCV9OYhiITXLZZGrvLrer/1DEqsZVTN4e323ou4geWXFphwD8HuIqg
-L+8TQicpkj/ME+MXbNc9lriyRAUVLkQ7LH2fs6CtuR0JCjrp+Qq1OnfOjqL5n6rX
-/ABvIFVvkSA6MSmkw+FGiOM=
------END CERTIFICATE REQUEST-----
-`
-	var _ = `
------BEGIN RSA PRIVATE KEY-----
-MIIEpAIBAAKCAQEAwwfV9j2azwOYQFxcXPjIlvywQfDFnRoYcdnMi+Q3vvOLQSr4
-Zl0PhTMu3SzREFzBdvhKeP2xv5KREAq1PEiaKnxvZWkoPCR6HBkmYps0mAMJoMij
-zK2sIKP0e/dXs18xQGgoA92/yFN2Xoz6BEzxanI9arI/QptPqptyKxOCr0xs9fA2
-OOTFkTsz2wGHujIH7u6KWO7Jrjli3ts72Ndps2T0mBfYDVruq3s7iI/ftY5yMSPX
-/Q4BxOYuwnkVb/gBOcFKGxHC09/sZPZ3S5Qhu42qcWUJzOgw5tJUr4VFxwWOHK9l
-pkNc/2Xa5HrpCX68ikz2FpZJ6euvvzSZY+TdiQIDAQABAoIBAQC15qgL67do3zxw
-wvQujqdgE7w9NFjLx1wHTBF4ZFoOEk7OcEqQBroEDRHnnfY8IZcb5EZphIz1VblQ
-0fvphvmrKLYpSqQJPChb7qUbkRDDuwmO2bPUoiMJqoHL4Yz9sopYPQ0dVgSaziV3
-2FsUCcOc+YII8skH0Z3DTQp13NOltKx3YYGV7BoHYSVA3CP2gRa3rONa45wTmq5f
-2FdPTVhm571EdLrXeeDivLk9cErLa9Qek3T7inLMgTZzM9Tr6ZrdH1Ik2CXyvLXv
-ROVbTTc4b9OJu/Y7iH3XFlSqT6RG4MK5c4NeQEhgU5prr1c77VBaDK7tLfXWHKBY
-IJXuh+1RAoGBAOUIW6pQZ8TSqOuPFFShyL+WjazDOVBYPOo2Tn3FH09fvI1q2u/s
-BXrTn3usFJpwPY4n83A0IsqLb/qpdFcfLFeZ5g95+/Sjk52YcCi9TMRfdYujVHCX
-76zFBRFudQ6b5dX+gn358QD72MYYjkrUHkm7X8BmfCMzeq5F4bOK5H5NAoGBANn+
-kUWDGmbZZ3KZ2GGPYAjFMBlHfttJhOZpGtdZiXCY4x2nMlBPLro7DUqCSJWyYYHN
-KHdvmLh0MSQrIp7/bi0HSBxz+CVZN7ZADzGNVYOkCsTGPDBSPzxJSXAZGl+bYOFD
-9KNZTCmceyg1F/lVOapGRYvJydoaWPjpA26NXlItAoGBAN12joSKiTy14qccTDFl
-2yL/JnF2uNXq7MQgzRcqZBMxZLZuK9QxKj9RoHZKuAV6INtz4B6QG1A1Mot0Dc4s
-k4kFhINUlgBBp/yMqW+LVE7Sa2wh/AV/tT8fp73qTABbWQvqtS2xYIxt+nfayMSs
-hbkQGQ+HSeQT5D3dztf4pudFAoGAP80m3W5iksl8YmkukFczJz33Nt7a/PlGgV0v
-sumMtTy59BrUOfcC2RShbjY1YkLEEQZnmpU54Hp5S3mod1qQ93LTIyi57sxu5tNW
-3wzbg1zGnhLa2NWplk5oxPtD4cmLEEMgXZKsHN2kmf74FkxgRTqt7hzQDBp8AdXI
-4FlVyr0CgYBpymKwlQry4XSnSWGbY7LU1fvRLtgHTkf/9WOW9Ljjs9QFs/pNoHut
-fWe+IBbrHPFgO4G2m2TDXoy6ZyUQ5M259W6VzESFf3yKQNCQ8+u0kmBU6mH0GpmA
-T2ZS4mwmSan8SmpGuOR5hnhcHlaVFn9vOPugxtCz3S64XI0rxX9K9w==
------END RSA PRIVATE KEY-----
-`
+	root_cert, _ := ReadFile("fixtures/root.crt")
+	intermidiate_cert, _ := ReadFile("fixtures/intermidiate.crt")
+	user_cert, _ := ReadFile("fixtures/user.crt")
+	var root *certificate.Cert
+	var user *certificate.Cert
+	var intermidiate *certificate.Cert
 
 	Context("Load Correct Root Certificate", func() {
-		var cert *certificate.Cert
-		cert, err := certificate.LoadCertificate(test_cert)
+		var err error
+		root, err = certificate.LoadCertificate(root_cert)
 		It("Should Not return error when certficate is valid", func() {
 			Ω(err).Should(BeNil())
 		})
-		It("Should Return 4 HostNames", func() {
-			hostName := cert.GetHostNames()
-			Ω(len(hostName)).Should(Equal(4))
-		})
 		It("Should Return subject", func() {
-			cn := cert.GetCommonName()
+			cn := root.GetCommonName()
 			Ω(cn).Should(Equal("www.company.com"))
 		})
 		It("Should be the root certificate", func() {
-			isRoot, err := cert.IsRootCert()
+			isRoot, err := root.IsRootCert()
 			Ω(err).Should(BeNil())
 			Ω(isRoot).Should(Equal(true))
+		})
+
+	})
+
+	Context("Load Correct Intermidiate Certificate", func() {
+		var err error
+		intermidiate, err = certificate.LoadCertificate(intermidiate_cert)
+		It("Should Not return error when certficate is valid", func() {
+			Ω(err).Should(BeNil())
+		})
+		It("Should be the CA Cert", func() {
+			isCA := intermidiate.IsCACert()
+			Ω(isCA).Should(Equal(true))
+		})
+	})
+
+	Context("Load Correct User Certificate", func() {
+		var err error
+		user, err = certificate.LoadCertificate(user_cert)
+		It("Should Not return error when certficate is valid", func() {
+			Ω(err).Should(BeNil())
+		})
+		It("Should Not be the CA Cert", func() {
+			isCA := user.IsCACert()
+			Ω(isCA).Should(Equal(false))
+		})
+		It("Should Be signed from the intermidiate", func() {
+			Ω(user.CheckSignedFrom(intermidiate)).Should(Not(HaveOccurred()))
+		})
+		It("Should Not be signed from the root", func() {
+			Ω(user.CheckSignedFrom(root)).Should(HaveOccurred())
+		})
+		It("Should Return 4 HostNames", func() {
+			hostName := user.GetHostNames()
+			Ω(len(hostName)).Should(Equal(4))
 		})
 
 	})
